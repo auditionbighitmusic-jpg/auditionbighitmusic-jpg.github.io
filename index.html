@@ -1,0 +1,1626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>BIGHIT MUSIC AUDITION</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      color: #111;
+      background: #fff;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+    }
+
+    /* HEADER */
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 82px;
+      background: rgba(255,255,255,.97);
+      backdrop-filter: blur(12px);
+      z-index: 1000;
+      border-bottom: 1px solid rgba(0,0,0,.08);
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 34px;
+    }
+
+    .menu-btn {
+      width: 42px;
+      height: 42px;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 6px;
+      padding: 7px;
+    }
+
+    .menu-btn span {
+      display: block;
+      width: 25px;
+      height: 2px;
+      background: #111;
+      transition: .3s;
+    }
+
+    .menu-btn.active span:nth-child(1) {
+      transform: translateY(8px) rotate(45deg);
+    }
+
+    .menu-btn.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .menu-btn.active span:nth-child(3) {
+      transform: translateY(-8px) rotate(-45deg);
+    }
+
+    .logo {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      line-height: 1;
+
+      font-weight: 900;
+      letter-spacing: -1.5px;
+      font-size: 21px;
+      white-space: nowrap;
+    }
+
+    .logo small {
+      display: block;
+      margin-top: 5px;
+      font-size: 8px;
+      letter-spacing: 2px;
+      font-weight: 700;
+    }
+
+    .language {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      cursor: pointer;
+    }
+
+    /* MENU */
+
+    .side-menu {
+      position: fixed;
+      top: 82px;
+      left: 0;
+
+      width: 100%;
+      min-height: calc(100vh - 82px);
+
+      background: #fff;
+      z-index: 999;
+
+      transform: translateX(-100%);
+      transition: transform .45s ease;
+
+      padding: 70px 8vw;
+
+      display: flex;
+      align-items: center;
+    }
+
+    .side-menu.open {
+      transform: translateX(0);
+    }
+
+    .side-menu nav {
+      display: flex;
+      flex-direction: column;
+      gap: 26px;
+    }
+
+    .side-menu a {
+      font-size: clamp(34px, 6vw, 70px);
+      font-weight: 800;
+      letter-spacing: -3px;
+      transition: .25s;
+    }
+
+    .side-menu a:hover {
+      color: #777;
+      padding-left: 15px;
+    }
+
+    /* HERO */
+
+    .hero {
+      min-height: 100vh;
+      padding-top: 82px;
+
+      position: relative;
+      overflow: hidden;
+
+      background:
+        linear-gradient(
+          180deg,
+          #7fc9f5 0%,
+          #bde8ff 45%,
+          #eefaff 100%
+        );
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .sun {
+      position: absolute;
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+
+      background: rgba(255,255,255,.45);
+      filter: blur(35px);
+
+      top: 12%;
+      right: 12%;
+    }
+
+    .cloud {
+      position: absolute;
+      background: rgba(255,255,255,.72);
+      border-radius: 100px;
+      filter: blur(2px);
+      opacity: .8;
+    }
+
+    .cloud::before,
+    .cloud::after {
+      content: "";
+      position: absolute;
+      background: inherit;
+      border-radius: 50%;
+    }
+
+    .cloud-1 {
+      width: 300px;
+      height: 75px;
+      top: 22%;
+      left: -50px;
+    }
+
+    .cloud-1::before {
+      width: 120px;
+      height: 120px;
+      left: 45px;
+      bottom: 10px;
+    }
+
+    .cloud-1::after {
+      width: 90px;
+      height: 90px;
+      left: 155px;
+      bottom: 12px;
+    }
+
+    .cloud-2 {
+      width: 390px;
+      height: 95px;
+      bottom: 24%;
+      right: -100px;
+    }
+
+    .cloud-2::before {
+      width: 150px;
+      height: 150px;
+      left: 60px;
+      bottom: 10px;
+    }
+
+    .cloud-2::after {
+      width: 115px;
+      height: 115px;
+      left: 205px;
+      bottom: 15px;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 5;
+
+      width: min(1200px, 90%);
+      text-align: center;
+    }
+
+    .hero-kicker {
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 4px;
+      margin-bottom: 25px;
+      text-transform: uppercase;
+    }
+
+    .hero-title {
+      font-size: clamp(54px, 10vw, 145px);
+      line-height: .82;
+      letter-spacing: -8px;
+      font-weight: 950;
+      text-transform: uppercase;
+
+      color: #fff;
+
+      text-shadow:
+        0 4px 0 rgba(255,255,255,.35),
+        0 14px 35px rgba(0,80,130,.15);
+    }
+
+    .hero-title span {
+      display: block;
+    }
+
+    .hero-subtitle {
+      margin: 42px auto 0;
+
+      max-width: 580px;
+
+      font-size: 15px;
+      line-height: 1.8;
+      font-weight: 500;
+
+      color: #12354a;
+    }
+
+    .hero-button {
+      display: inline-flex;
+
+      margin-top: 30px;
+      padding: 17px 35px;
+
+      background: #111;
+      color: #fff;
+
+      border-radius: 100px;
+
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 1px;
+
+      transition: .3s;
+    }
+
+    .hero-button:hover {
+      transform: translateY(-4px);
+      background: #fff;
+      color: #111;
+    }
+
+    .scroll {
+      position: absolute;
+      bottom: 25px;
+      left: 50%;
+      transform: translateX(-50%);
+
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 2px;
+
+      color: #31576b;
+    }
+
+    /* INTRO */
+
+    .intro {
+      padding: 130px 7vw;
+      background: #fff;
+
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 90px;
+      align-items: center;
+    }
+
+    .section-number {
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 3px;
+
+      color: #999;
+      margin-bottom: 25px;
+    }
+
+    .intro h2 {
+      font-size: clamp(42px,6vw,85px);
+      line-height: .95;
+      letter-spacing: -4px;
+    }
+
+    .intro p {
+      color: #555;
+      line-height: 1.9;
+      font-size: 16px;
+    }
+
+    /* CATEGORIES */
+
+    .categories {
+      background: #f4f4f2;
+      padding: 130px 7vw;
+    }
+
+    .categories-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+
+      margin-bottom: 60px;
+      gap: 30px;
+    }
+
+    .categories h2 {
+      font-size: clamp(45px,7vw,95px);
+      letter-spacing: -5px;
+      line-height: .9;
+    }
+
+    .categories-header p {
+      max-width: 360px;
+      line-height: 1.7;
+      color: #666;
+    }
+
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(4,1fr);
+      gap: 2px;
+    }
+
+    .category {
+      min-height: 310px;
+
+      background: #fff;
+
+      padding: 35px;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      transition: .3s;
+    }
+
+    .category:hover {
+      background: #111;
+      color: #fff;
+      transform: translateY(-8px);
+    }
+
+    .category-number {
+      font-size: 11px;
+      font-weight: 800;
+      color: #999;
+    }
+
+    .category h3 {
+      font-size: 29px;
+      letter-spacing: -1px;
+      margin-bottom: 12px;
+    }
+
+    .category p {
+      color: #777;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .category:hover p {
+      color: #bbb;
+    }
+
+    /* PROCESS */
+
+    .process {
+      padding: 140px 7vw;
+
+      background: #111;
+      color: #fff;
+    }
+
+    .process h2 {
+      font-size: clamp(45px,7vw,100px);
+      letter-spacing: -6px;
+      line-height: .9;
+
+      margin-bottom: 80px;
+    }
+
+    .process-list {
+      border-top: 1px solid #444;
+    }
+
+    .process-item {
+      display: grid;
+      grid-template-columns: 100px 1fr 1fr;
+
+      gap: 30px;
+
+      padding: 38px 0;
+
+      border-bottom: 1px solid #333;
+
+      align-items: center;
+    }
+
+    .process-item strong {
+      font-size: 12px;
+      letter-spacing: 2px;
+      color: #aaa;
+    }
+
+    .process-item h3 {
+      font-size: 27px;
+    }
+
+    .process-item p {
+      color: #aaa;
+      line-height: 1.7;
+      font-size: 14px;
+    }
+
+    /* REQUIREMENTS */
+
+    .requirements {
+      padding: 140px 7vw;
+      background: #fff;
+    }
+
+    .requirements h2 {
+      font-size: clamp(45px,7vw,95px);
+      letter-spacing: -5px;
+
+      margin-bottom: 70px;
+    }
+
+    .requirements-grid {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 25px;
+    }
+
+    .requirement {
+      border-top: 3px solid #111;
+      padding-top: 25px;
+    }
+
+    .requirement h3 {
+      font-size: 24px;
+      margin-bottom: 14px;
+    }
+
+    .requirement p {
+      color: #666;
+      line-height: 1.8;
+      font-size: 14px;
+    }
+
+    /* APPLICATION */
+
+    .application {
+      background: #e9e9e7;
+      padding: 140px 7vw;
+    }
+
+    .application-inner {
+      max-width: 950px;
+      margin: auto;
+    }
+
+    .application h2 {
+      font-size: clamp(45px,7vw,90px);
+      letter-spacing: -5px;
+      line-height: .9;
+
+      margin-bottom: 25px;
+    }
+
+    .application-intro {
+      color: #666;
+      line-height: 1.8;
+
+      margin-bottom: 55px;
+      max-width: 600px;
+    }
+
+    form {
+      background: #fff;
+      padding: 45px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 25px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+
+    .field.full {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+
+      border: none;
+      border-bottom: 1px solid #bbb;
+
+      padding: 15px 3px;
+
+      outline: none;
+
+      background: transparent;
+      color: #111;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-bottom-color: #111;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    .submit-btn {
+      border: none;
+
+      background: #111;
+      color: #fff;
+
+      padding: 18px 35px;
+
+      cursor: pointer;
+
+      font-weight: 800;
+      letter-spacing: 1px;
+
+      transition: .3s;
+    }
+
+    .submit-btn:hover {
+      background: #444;
+      transform: translateY(-2px);
+    }
+
+    /* FAQ */
+
+    .faq {
+      padding: 140px 7vw;
+      background: #fff;
+    }
+
+    .faq h2 {
+      font-size: clamp(45px,7vw,90px);
+      letter-spacing: -5px;
+
+      margin-bottom: 60px;
+    }
+
+    .faq-item {
+      border-top: 1px solid #ccc;
+    }
+
+    .faq-question {
+      width: 100%;
+
+      border: none;
+      background: transparent;
+
+      padding: 25px 0;
+
+      text-align: left;
+
+      font-size: 18px;
+      font-weight: 700;
+
+      cursor: pointer;
+
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .faq-question span {
+      font-size: 25px;
+      transition: .3s;
+    }
+
+    .faq-answer {
+      display: none;
+
+      padding: 0 50px 25px 0;
+
+      color: #666;
+      line-height: 1.8;
+      font-size: 14px;
+    }
+
+    .faq-item.open .faq-answer {
+      display: block;
+    }
+
+    .faq-item.open .faq-question span {
+      transform: rotate(45deg);
+    }
+
+    /* FOOTER */
+
+    footer {
+      background: #111;
+      color: #fff;
+
+      padding: 70px 7vw 35px;
+    }
+
+    .footer-top {
+      display: flex;
+      justify-content: space-between;
+
+      gap: 40px;
+
+      padding-bottom: 60px;
+    }
+
+    .footer-logo {
+      font-size: 28px;
+      font-weight: 900;
+      letter-spacing: -1px;
+    }
+
+    .footer-logo span {
+      display: block;
+
+      font-size: 9px;
+      color: #777;
+
+      letter-spacing: 2px;
+
+      margin-top: 8px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 30px;
+      flex-wrap: wrap;
+
+      font-size: 12px;
+      color: #aaa;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid #333;
+
+      padding-top: 25px;
+
+      color: #666;
+
+      font-size: 10px;
+      line-height: 1.7;
+    }
+
+    /* MOBILE */
+
+    @media(max-width:900px) {
+
+      .intro {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .category-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .requirements-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .process-item {
+        grid-template-columns: 60px 1fr;
+      }
+
+      .process-item p {
+        grid-column: 2;
+      }
+    }
+
+    @media(max-width:650px) {
+
+      header {
+        padding: 0 17px;
+        height: 70px;
+      }
+
+      .side-menu {
+        top: 70px;
+        min-height: calc(100vh - 70px);
+      }
+
+      .logo {
+        font-size: 15px;
+      }
+
+      .logo small {
+        font-size: 6px;
+      }
+
+      .hero {
+        padding-top: 70px;
+        min-height: 100svh;
+      }
+
+      .hero-title {
+        letter-spacing: -4px;
+      }
+
+      .hero-subtitle {
+        font-size: 13px;
+      }
+
+      .intro,
+      .categories,
+      .process,
+      .requirements,
+      .application,
+      .faq {
+        padding: 90px 6vw;
+      }
+
+      .categories-header {
+        display: block;
+      }
+
+      .categories-header p {
+        margin-top: 25px;
+      }
+
+      .category-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .category {
+        min-height: 240px;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .field.full {
+        grid-column: auto;
+      }
+
+      form {
+        padding: 25px;
+      }
+
+      .footer-top {
+        display: block;
+      }
+
+      .footer-links {
+        margin-top: 30px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+
+  <header>
+
+    <button class="menu-btn" id="menuBtn" aria-label="Open menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <a href="#home" class="logo">
+      BIGHIT MUSIC
+      <small>AUDITION</small>
+    </a>
+
+    <div class="language">
+      KOR ▾
+    </div>
+
+  </header>
+
+
+  <!-- MENU -->
+
+  <div class="side-menu" id="sideMenu">
+
+    <nav>
+      <a href="#home">HOME</a>
+      <a href="#audition">AUDITION</a>
+      <a href="#requirements">REQUIREMENTS</a>
+      <a href="#application">APPLY</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+
+  </div>
+
+
+  <!-- HERO -->
+
+  <section class="hero" id="home">
+
+    <div class="sun"></div>
+
+    <div class="cloud cloud-1"></div>
+    <div class="cloud cloud-2"></div>
+
+    <div class="hero-content">
+
+      <div class="hero-kicker">
+        2026 GLOBAL AUDITION
+      </div>
+
+      <h1 class="hero-title">
+        <span>SHOW</span>
+        <span>YOUR</span>
+        <span>TALENT.</span>
+      </h1>
+
+      <p class="hero-subtitle">
+        Talent has no borders. Discover your path,
+        prepare your performance and take your
+        first step toward the stage.
+      </p>
+
+      <a href="#application" class="hero-button">
+        START YOUR JOURNEY →
+      </a>
+
+    </div>
+
+    <div class="scroll">
+      SCROLL ↓
+    </div>
+
+  </section>
+
+
+  <!-- INTRO -->
+
+  <section class="intro" id="audition">
+
+    <div>
+
+      <div class="section-number">
+        01 — AUDITION
+      </div>
+
+      <h2>
+        YOUR<br>
+        MOMENT<br>
+        STARTS<br>
+        HERE.
+      </h2>
+
+    </div>
+
+    <div>
+
+      <p>
+        Talent has no borders. Whether your strength
+        is music, dance, rap or performance, this
+        website gives you a simple place to explore
+        the audition process.
+      </p>
+
+      <br>
+
+      <p>
+        Prepare your strongest material, understand
+        the requirements and take your first step.
+      </p>
+
+    </div>
+
+  </section>
+
+
+  <!-- CATEGORIES -->
+
+  <section class="categories">
+
+    <div class="categories-header">
+
+      <div>
+
+        <div class="section-number">
+          02 — CATEGORIES
+        </div>
+
+        <h2>
+          FIND<br>
+          YOUR<br>
+          STAGE.
+        </h2>
+
+      </div>
+
+      <p>
+        Choose the area that best represents
+        your talent. Your audition should focus
+        on what you do best.
+      </p>
+
+    </div>
+
+
+    <div class="category-grid">
+
+      <div class="category">
+
+        <div class="category-number">
+          01
+        </div>
+
+        <div>
+
+          <h3>VOCAL</h3>
+
+          <p>
+            Show your tone, control, emotion
+            and individual musical identity.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="category">
+
+        <div class="category-number">
+          02
+        </div>
+
+        <div>
+
+          <h3>RAP</h3>
+
+          <p>
+            Demonstrate rhythm, delivery,
+            flow and your own unique style.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="category">
+
+        <div class="category-number">
+          03
+        </div>
+
+        <div>
+
+          <h3>DANCE</h3>
+
+          <p>
+            Let your movement, musicality
+            and performance presence speak.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="category">
+
+        <div class="category-number">
+          04
+        </div>
+
+        <div>
+
+          <h3>OTHERS</h3>
+
+          <p>
+            Have another performance talent?
+            Introduce your speciality.
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- PROCESS -->
+
+  <section class="process">
+
+    <div class="section-number">
+      03 — PROCESS
+    </div>
+
+    <h2>
+      THREE<br>
+      SIMPLE<br>
+      STEPS.
+    </h2>
+
+
+    <div class="process-list">
+
+      <div class="process-item">
+
+        <strong>01</strong>
+
+        <h3>PREPARE</h3>
+
+        <p>
+          Select your strongest performance
+          and make sure your recording clearly
+          represents you.
+        </p>
+
+      </div>
+
+
+      <div class="process-item">
+
+        <strong>02</strong>
+
+        <h3>APPLY</h3>
+
+        <p>
+          Complete the application information
+          and provide the requested audition details.
+        </p>
+
+      </div>
+
+
+      <div class="process-item">
+
+        <strong>03</strong>
+
+        <h3>PERFORM</h3>
+
+        <p>
+          Be confident, stay authentic and show
+          what makes your performance different.
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- REQUIREMENTS -->
+
+  <section class="requirements" id="requirements">
+
+    <div class="section-number">
+      04 — REQUIREMENTS
+    </div>
+
+    <h2>
+      BEFORE<br>
+      YOU APPLY.
+    </h2>
+
+
+    <div class="requirements-grid">
+
+      <div class="requirement">
+
+        <h3>
+          01 — TALENT
+        </h3>
+
+        <p>
+          Prepare one performance that best
+          demonstrates your ability. Keep it
+          clear and focused.
+        </p>
+
+      </div>
+
+
+      <div class="requirement">
+
+        <h3>
+          02 — RECORDING
+        </h3>
+
+        <p>
+          Use a clear recording with good
+          lighting and sound. Avoid excessive
+          filters or effects.
+        </p>
+
+      </div>
+
+
+      <div class="requirement">
+
+        <h3>
+          03 — CONFIDENCE
+        </h3>
+
+        <p>
+          Your personality matters. Focus
+          on being natural, confident and
+          authentic.
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- APPLICATION -->
+
+  <section class="application" id="application">
+
+    <div class="application-inner">
+
+      <div class="section-number">
+        05 — APPLICATION
+      </div>
+
+      <h2>
+        TAKE<br>
+        YOUR<br>
+        SHOT.
+      </h2>
+
+      <p class="application-intro">
+        Complete the information below to
+        introduce yourself and your talent.
+      </p>
+
+
+      <form id="applicationForm">
+
+        <div class="form-grid">
+
+          <div class="field">
+
+            <label for="name">
+              Name
+            </label>
+
+            <input
+              type="text"
+              id="name"
+              placeholder="Your name"
+              required
+            >
+
+          </div>
+
+
+          <div class="field">
+
+            <label for="email">
+              Email
+            </label>
+
+            <input
+              type="email"
+              id="email"
+              placeholder="Your email"
+              required
+            >
+
+          </div>
+
+
+          <div class="field">
+
+            <label for="category">
+              Audition Category
+            </label>
+
+            <select id="category" required>
+
+              <option value="">
+                Select category
+              </option>
+
+              <option>
+                Vocal
+              </option>
+
+              <option>
+                Rap
+              </option>
+
+              <option>
+                Dance
+              </option>
+
+              <option>
+                Others
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <div class="field">
+
+            <label for="country">
+              Country
+            </label>
+
+            <input
+              type="text"
+              id="country"
+              placeholder="Your country"
+              required
+            >
+
+          </div>
+
+
+          <div class="field full">
+
+            <label for="message">
+              Tell us about your talent
+            </label>
+
+            <textarea
+              id="message"
+              placeholder="Introduce yourself and your performance..."
+              required
+            ></textarea>
+
+          </div>
+
+
+          <div class="field full">
+
+            <label for="file">
+              Audition File
+            </label>
+
+            <input
+              type="file"
+              id="file"
+              accept="audio/*,video/*"
+            >
+
+          </div>
+
+        </div>
+
+
+        <br><br>
+
+        <button
+          class="submit-btn"
+          type="submit"
+        >
+          SUBMIT APPLICATION →
+        </button>
+
+      </form>
+
+    </div>
+
+  </section>
+
+
+  <!-- FAQ -->
+
+  <section class="faq" id="faq">
+
+    <div class="section-number">
+      06 — FAQ
+    </div>
+
+    <h2>
+      QUESTIONS?
+    </h2>
+
+
+    <div class="faq-item">
+
+      <button class="faq-question">
+
+        Is this the official BIGHIT MUSIC website?
+
+        <span>+</span>
+
+      </button>
+
+      <div class="faq-answer">
+
+        No. This website is independently created
+        and is not affiliated with or endorsed by
+        BIGHIT MUSIC or HYBE.
+
+      </div>
+
+    </div>
+
+
+    <div class="faq-item">
+
+      <button class="faq-question">
+
+        How do I prepare for an audition?
+
+        <span>+</span>
+
+      </button>
+
+      <div class="faq-answer">
+
+        Choose the performance category that
+        best represents your strengths and prepare
+        a clear, confident performance.
+
+      </div>
+
+    </div>
+
+
+    <div class="faq-item">
+
+      <button class="faq-question">
+
+        What category can I apply for?
+
+        <span>+</span>
+
+      </button>
+
+      <div class="faq-answer">
+
+        The website provides categories for vocal,
+        rap, dance and other performance talents.
+
+      </div>
+
+    </div>
+
+
+    <div class="faq-item">
+
+      <button class="faq-question">
+
+        Can I upload an audition video?
+
+        <span>+</span>
+
+      </button>
+
+      <div class="faq-answer">
+
+        The upload field is included as part of
+        the website interface. A real application
+        system would require secure file storage
+        and a backend.
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- FOOTER -->
+
+  <footer>
+
+    <div class="footer-top">
+
+      <div class="footer-logo">
+
+        BIGHIT MUSIC
+
+        <span>
+          AUDITION
+        </span>
+
+      </div>
+
+
+      <div class="footer-links">
+
+        <a href="#home">
+          HOME
+        </a>
+
+        <a href="#audition">
+          AUDITION
+        </a>
+
+        <a href="#requirements">
+          REQUIREMENTS
+        </a>
+
+        <a href="#application">
+          APPLY
+        </a>
+
+        <a href="#faq">
+          FAQ
+        </a>
+
+      </div>
+
+    </div>
+
+
+    <div class="footer-bottom">
+
+      This website is independently created and is not
+      affiliated with, operated by, sponsored by, or
+      endorsed by BIGHIT MUSIC or HYBE.
+
+      <br><br>
+
+      © 2026 Audition Website.
+
+    </div>
+
+  </footer>
+
+
+  <!-- JAVASCRIPT -->
+
+  <script>
+
+    /* MENU */
+
+    const menuBtn =
+      document.getElementById("menuBtn");
+
+    const sideMenu =
+      document.getElementById("sideMenu");
+
+
+    menuBtn.addEventListener("click", () => {
+
+      menuBtn.classList.toggle("active");
+
+      sideMenu.classList.toggle("open");
+
+    });
+
+
+    document
+      .querySelectorAll(".side-menu a")
+      .forEach(link => {
+
+        link.addEventListener("click", () => {
+
+          menuBtn.classList.remove("active");
+
+          sideMenu.classList.remove("open");
+
+        });
+
+      });
+
+
+    /* FAQ */
+
+    document
+      .querySelectorAll(".faq-question")
+      .forEach(button => {
+
+        button.addEventListener("click", () => {
+
+          const item =
+            button.parentElement;
+
+
+          document
+            .querySelectorAll(".faq-item")
+            .forEach(other => {
+
+              if (other !== item) {
+
+                other.classList.remove("open");
+
+              }
+
+            });
+
+
+          item.classList.toggle("open");
+
+        });
+
+      });
+
+
+    /* APPLICATION */
+
+    document
+      .getElementById("applicationForm")
+      .addEventListener("submit", function(event) {
+
+        event.preventDefault();
+
+        alert(
+          "Thank you for your application."
+        );
+
+        this.reset();
+
+      });
+
+  </script>
+
+</body>
+</html>
